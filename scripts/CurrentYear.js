@@ -1,3 +1,4 @@
+// file name CurrentYear.js
 // get current year
 (function () {
     var year = new Date().getFullYear();
