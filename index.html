@@ -1,68 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gecku.net Under Maintenance</title>
-  <link rel="icon" type="img/png/Favicon.png"
-
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SDHX0MRSED"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-SDHX0MRSED');
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9374454471326416"
-     crossorigin="anonymous"></script>
+  <title>Welcome to [domain] | Sponsored by [sponsor]</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
-      text-align: center;
-      padding: 50px;
-    }
-    h1 {
-      font-size: 2em;
-      color: #2f9d09;
-    }
-    p {
-      font-size: 1.2em;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9fb;
       color: #333;
     }
+
+    .container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    h1, p {
+      text-align: center;
+    }
+
+    /* Banner Ad */
+    #banner-ad {
+      text-align: center;
+      margin: 20px 0;
+      background-color: #e9ecef;
+      padding: 20px 0;
+    }
+
+    #banner-ad img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Content and Sidebar */
+    .content {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .main-content {
+      flex: 70%;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Body Ad Section */
+    .body-ad {
+      text-align: center;
+      margin: 20px 0;
+      background-color: #e9f7ef;
+      padding: 20px;
+    }
+
+    .body-ad img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Sidebar Ad */
+    .sidebar {
+      flex: 28%;
+      text-align: center;
+      background-color: #e9ecef;
+      padding: 20px;
+    }
+
+    .sidebar img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
     a {
-      color: #2f9d09;
+      display: block;
+      text-align: center;
+      margin: 20px 0;
+      font-weight: bold;
+      color: #007BFF;
       text-decoration: none;
     }
+
     a:hover {
-      color: #333;
-    }
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #2f9d09;
-      color: #fff;
-      padding: 10px 0;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <article>
-    <h1>We'll Be Back Soon!</h1>
-    <div>
-      <p>Sorry for the inconvenience, but we're currently undergoing maintenance. If you need assistance, feel free to email us at <a href="mailto:hello@gecku.net">hello@gecku.net</a>. We appreciate your patience!</p>
-      <p>Team Gecku Labs</p>
+  <div class="container">
+   <!-- Dynamic Welcome Section -->
+   <h1 id="welcome-message">Welcome to [website]</h1>
+   <p id="sponsor-message">Sponsored by [sponsor]</p>
+
+    <!-- Banner Ad Section -->
+    <div id="banner-ad">
+      <a href="https://thevoicemedia.com" target="_blank">
+        <img src="/assets/banner.png" alt="Banner Ad">
     </div>
-  </article>
 
-  <footer>
-    &copy; 2023 - <span id="currentYear"></span> Gecku Inc. All Rights Reserved.
-  </footer>
+    <!-- Content and Sidebar -->
+    <div class="content">
+      <div class="main-content">
+        <h2>About This Domain</h2>
+        <p>This domain receives over 600+ monthly visitors. Advertise here to reach potential customers!</p>
 
-  <script src="scripts/CurrentYear.js"></script>
+        <!-- Body Ad Section -->
+        <div class="body-ad" id="body-ad">
+          <a href="https://thevoicemedia.com" target="_blank">
+          <img src="/assets/body.png" alt="Body Ad">
+        </div>
+      </div>
+
+      <!-- Sidebar Ad -->
+      <div class="sidebar" id="sidebar-ad">
+        <a href="https://thevoicemedia.com" target="_blank">
+        <img src="/assets/sidebar.png" alt="Sidebar Ad">
+        <hread></hread>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <a href="/promote.html">Advertise With Us</a>
+
+    <footer>
+      <p>&copy; 2024 Gecku.net. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Load Dynamic Content -->
+  <script>
+    // Load the JSON file and update the page dynamically
+    async function updateWebsiteContent() {
+        try {
+            const domain = window.location.hostname;
+
+            const response = await fetch('/ads.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            const sponsor = data.sponsor || 'Your Sponsor';
+
+            const baseTitle = `Welcome to ${domain} | Sponsored by ${sponsor}`;
+            document.title = baseTitle;
+
+            let scrollIndex = 0;
+            function scrollTitle() {
+                document.title = baseTitle.slice(scrollIndex) + " " + baseTitle.slice(0, scrollIndex);
+                scrollIndex = (scrollIndex + 1) % baseTitle.length;
+            }
+            setInterval(scrollTitle, 200);
+
+            const welcomeMessage = document.getElementById('welcome-message');
+            if (welcomeMessage) {
+                welcomeMessage.textContent = `Welcome to ${domain}`;
+            }
+
+            const sponsorMessage = document.getElementById('sponsor-message');
+            if (sponsorMessage) {
+                sponsorMessage.textContent = `Sponsored by ${sponsor}`;
+            }
+
+            const footer = document.querySelector('footer');
+            if (footer) {
+                footer.innerHTML = `&copy; ${new Date().getFullYear()} ${domain}. Sponsored by <strong>${sponsor}</strong> | Ads by <strong>ParkSpot Media</strong>`;
+            }
+        } catch (error) {
+            console.error('Error loading ads.json:', error);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', updateWebsiteContent);
+  </script>
 </body>
 </html>

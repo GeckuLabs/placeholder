@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading...</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #007BFF;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #28a745;
+      font-size: 1.8rem;
+      margin: 20px 0 10px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    .ad-option {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .ad-option img {
+      max-width: 100%;
+      height: auto;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+    }
+
+    .cta-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      transition: background 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="welcome-message">Loading...</h1>
+    <p id="sponsor-message">Loading sponsor information...</p>
+    
+    <!-- Ad Option: Top Banner -->
+    <div class="ad-option">
+      <h2>1. Top Banner Ad</h2>
+      <p>High visibility at the top of every page. Recommended size: <strong>970x90 pixels</strong>.</p>
+      <img src="https://via.placeholder.com/970x90?text=Top+Banner+Example" alt="Top Banner Ad Example">
+      <p><strong>Price:</strong> $100/month</p>
+    </div>
+
+    <!-- Ad Option: Sidebar Ad -->
+    <div class="ad-option">
+      <h2>2. Sidebar Ad</h2>
+      <p>Prominent placement on the right sidebar. Recommended size: <strong>300x250 pixels</strong>.</p>
+      <img src="https://via.placeholder.com/300x250?text=Sidebar+Ad+Example" alt="Sidebar Ad Example">
+      <p><strong>Price:</strong> $75/month</p>
+    </div>
+
+    <!-- Ad Option: Sponsored Content -->
+    <div class="ad-option">
+      <h2>3. Sponsored Content</h2>
+      <p>A dedicated space for an article or blog post to promote your product or service.</p>
+      <p>Includes your logo/image and up to 600 words of content.</p>
+      <img src="https://via.placeholder.com/600x200?text=Sponsored+Content+Example" alt="Sponsored Content Example">
+      <p><strong>Price:</strong> $150/post</p>
+    </div>
+
+    <!-- Contact CTA -->
+    <p>Interested in advertising? Reach out to us!</p>
+    <a href="mailto:ads@gecku.net" class="cta-button">Contact Us</a>
+
+    <footer>
+      <p>&copy; 2024 Loading... Sponsored by Loading...</p>
+    </footer>
+  </div>
+
+  <script>
+    // Load the JSON file and update the page dynamically
+async function updateWebsiteContent() {
+    try {
+        // Get the domain name dynamically from the host
+        const domain = window.location.hostname;
+
+        // Fetch the ads.json file
+        const response = await fetch('/ads.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Extract the sponsor information
+        const sponsor = data.sponsor || 'Your Sponsor';
+
+        // Update the page title
+        const baseTitle = `Welcome to ${domain} | Sponsored by ${sponsor}`;
+        document.title = baseTitle;
+
+        // Add scrolling effect to the title
+        let scrollIndex = 0;
+        function scrollTitle() {
+            document.title = baseTitle.slice(scrollIndex) + " " + baseTitle.slice(0, scrollIndex);
+            scrollIndex = (scrollIndex + 1) % baseTitle.length;
+        }
+        setInterval(scrollTitle, 200);
+
+        // Update the welcome message
+        const welcomeMessage = document.getElementById('welcome-message');
+        if (welcomeMessage) {
+            welcomeMessage.textContent = `Welcome to ${domain}`;
+        }
+
+        // Update the sponsor message
+        const sponsorMessage = document.getElementById('sponsor-message');
+        if (sponsorMessage) {
+            sponsorMessage.textContent = `Sponsored by ${sponsor}`;
+        }
+
+        // Update the footer content
+        const footer = document.querySelector('footer');
+        if (footer) {
+            footer.innerHTML = `&copy; ${new Date().getFullYear()} ${domain}. Sponsored by <strong>${sponsor}</strong> | Ads by <strong>ParkSpot Media</strong>`;
+        }
+
+        // Update any element with ID 'advertise-with'
+        const advertiseWith = document.getElementById('advertise-with');
+        if (advertiseWith) {
+            advertiseWith.textContent = `Advertise With ${domain}`;
+        }
+    } catch (error) {
+        console.error('Error loading ads.json:', error);
+    }
+}
+
+// Call the function when the page loads
+window.addEventListener('DOMContentLoaded', updateWebsiteContent);
+
+  </script>
+</body>
+</html>
